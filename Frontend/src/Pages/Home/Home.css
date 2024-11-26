@@ -1,0 +1,60 @@
+/* Hero */
+.hero-home {
+  background-image: url(../../Assets/bank-tree.jpeg);
+  background-position: 0 -280px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+  position: relative;
+}
+.content-hero-home {
+  background: white;
+  padding: 2rem;
+  text-align: left;
+  position: absolute;
+  top: 40px;
+  right: 50px;
+  width: 287px;
+  margin: 2rem;
+}
+.titre-hero-home {
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin: 0;
+}
+.texte-hero-home {
+  margin-bottom: 0;
+  font-size: 1.1rem;
+}
+
+
+/* features */
+
+.container-features {
+  display: flex;
+  flex-direction: row;
+}
+.container-features-item {
+    display: flex;
+    flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem;
+}
+.feature-icon {
+  width: 100px;
+  border: 10px solid #00bc77;
+  border-radius: 50%;
+  padding: 1rem;
+}
+.feature-item-title {
+  color: #222;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.feature-item-texte{
+    text-align: center;
+    margin-top: 0px;
+}
