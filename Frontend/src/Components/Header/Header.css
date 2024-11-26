@@ -1,0 +1,33 @@
+.container-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  height: 60px;
+}
+
+.header-logo {
+  max-width: 100%;
+  width: 200px;
+  margin-left: -10px;
+  cursor: pointer;
+}
+.container-header-sign {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.font-header{
+    color: #2c3e50;
+}
+.link-header {
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+  cursor: pointer;
+}
+.link-header:hover{
+    text-decoration:underline;
+}
