@@ -1,9 +1,24 @@
 import "./Home.css";
 
-import logo1 from "../../Assets/icon-chat.png";
-import logo2 from "../../Assets/icon-money.png";
-import logo3 from "../../Assets/icon-security.png";
+import FeaturesHome from "../../Components/FeaturesHome/FeaturesHome";
 export default function Home() {
+  const features = {
+    src: [
+      require("../../Assets/icon-chat.png"),
+      require("../../Assets/icon-money.png"),
+      require("../../Assets/icon-security.png"),
+    ],
+    title: [
+      "You are our #1 priority",
+      "More savings means higher rates",
+      "Security you can trust",
+    ],
+    details: [
+      "Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes.",
+      "The more you save with us, the higher your interest rate will be!",
+      " We use top of the line encryption to make sure your data and money is always safe.",
+    ],
+  };
   return (
     <section>
       <div className='hero-home'>
@@ -17,33 +32,21 @@ export default function Home() {
         </div>
       </div>
       <div className='container-features'>
-        <div className='container-features-item'>
-          <img src={logo1} alt='chat item' className='feature-icon' />
-          <h2 className='feature-item-title'>You are our #1 priority</h2>
-          <p className='feature-item-texte'>
-            Need to talk to a representative? You can get in touch through our
-            24/7 chat or through a phone call in less than 5 minutes.
-          </p>
-        </div>
-
-        <div className='container-features-item'>
-          <img src={logo2} alt='chat item' className='feature-icon' />
-          <h2 className='feature-item-title'>
-            More savings means higher rates
-          </h2>
-          <p className='feature-item-texte'>
-            The more you save with us, the higher your interest rate will be!
-          </p>
-        </div>
-
-        <div className='container-features-item'>
-          <img src={logo3} alt='chat item' className='feature-icon' />
-          <h2 className='feature-item-title'>Security you can trust</h2>
-          <p className='feature-item-texte'>
-            We use top of the line encryption to make sure your data and money
-            is always safe.
-          </p>
-        </div>
+        <FeaturesHome
+          icon={features.src[0]}
+          title={features.title[0]}
+          texte={features.details[0]}
+        />
+        <FeaturesHome
+          icon={features.src[1]}
+          title={features.title[1]}
+          texte={features.details[1]}
+        />
+        <FeaturesHome
+          icon={features.src[2]}
+          title={features.title[2]}
+          texte={features.details[2]}
+        />
       </div>
     </section>
   );
