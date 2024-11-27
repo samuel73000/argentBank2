@@ -2,8 +2,8 @@ import "./SignIn.css"
 
 export default function SignIn (){
     return(
-        <section>
-            
+        <section className="section-SignIn">
+
         </section>
     )
 }
