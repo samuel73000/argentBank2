@@ -3,3 +3,57 @@
     height: calc(100vh - 180px);
     background-color: #12002b;
 }
+input{
+    cursor: pointer;
+}
+.container-SignIn{
+    box-sizing: border-box;
+    background-color: white;
+    width: 300px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: absolute;
+    top: 6rem;
+    left: 43%;
+}
+.container-title-SignIn{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.icon-SignIn{
+   font-size:  normal normal normal 14px/1 FontAwesome;
+}
+.title-SignIn{
+    font-size: 1.5em;
+}
+.label-SignIn{
+    font-weight: bold;
+    text-align: left;
+}
+.input-SignIn{
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.container-submit-SignIn{
+    display: flex;
+    flex-direction: column;
+}
+.label-remenber-SignIn{
+    margin-left: 0.25rem; 
+}
+
+.btn-submit-SignIn{
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
+    text-decoration: underline;
+}
