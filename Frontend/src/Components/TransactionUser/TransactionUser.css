@@ -1,0 +1,33 @@
+
+.transaction-user{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+width: 80%;
+background-color: white;
+padding: 20px;
+}
+.texte-transaction-user{
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: normal;
+}
+.title-transaction-user{
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.btn-transaction-user{
+    display: block;
+    width: 200px;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
+ 
+}
