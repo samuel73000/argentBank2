@@ -65,7 +65,7 @@ To learn more about how the API works, once you have started your local environm
 
 ## Design Assets
 
-Static HTML and CSS has been created for most of the site and is located in: `/designs`.
+
 
 For some of the dynamic features, like toggling user editing, there is a mock-up for it in `/designs/wireframes/edit-user-name.png`.
 
