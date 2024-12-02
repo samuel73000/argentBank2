@@ -1,10 +1,16 @@
 import "./SignIn.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleUser,
+  faEyeSlash,
+  faEye,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
+  const [showPassword, setShowPassword] = useState(false); // State pour afficher/masquer le mot de passe
+
   const [errorMessage, setErrorMessage] = useState(""); // State pour les erreurs
   const navigate = useNavigate(); // Hook pour la redirection
 
@@ -67,7 +73,25 @@ export default function SignIn() {
           <label htmlFor='password' className='label-SignIn'>
             Password
           </label>
-          <input type='password' id='password' className='input-SignIn' />
+          <input
+            type={showPassword ? "text" : "password"}
+            id='password'
+            className='input-SignIn'
+          />
+          {showPassword ? (
+            <FontAwesomeIcon
+              icon={faEyeSlash}
+              className='toggle-password-icon'
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faEye}
+              className='toggle-password-icon'
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          )}
+
           <input type='checkbox' id='remenber' />
           <label htmlFor='remenber' className='label-remenber-SignIn'>
             Remember me

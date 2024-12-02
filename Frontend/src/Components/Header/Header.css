@@ -19,6 +19,18 @@
   align-items: center;
   gap: 10px;
 }
+.container-header-sign-out{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+}
+.userName-Header{
+  font-weight: bold;
+    color: #2c3e50;
+    cursor: pointer;
+}
 .font-header{
     color: #2c3e50;
 }
@@ -30,4 +42,7 @@
 }
 .link-header:hover{
     text-decoration:underline;
+}
+.userName-Header:hover{
+  text-decoration:underline;
 }
