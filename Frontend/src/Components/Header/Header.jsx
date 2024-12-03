@@ -30,7 +30,7 @@ export default function Header() {
         <div className='container-header-sign-out'>
           <FontAwesomeIcon icon={faCircleUser} className='font-header' />
           <Link to='/User'>
-            <p className='userName-Header'>tony</p>
+            <p className='userName-Header'>Tony</p>
           </Link>
           <FontAwesomeIcon icon={faRightToBracket} />
           <Link to='/'>
