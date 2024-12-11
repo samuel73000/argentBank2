@@ -3,10 +3,10 @@ import "./User.css";
 import TransactionUser from "../../Components/TransactionUser/TransactionUser";
 
 export default function User() {
-  const [profilData, setProfilData] = useState(
-    JSON.parse(localStorage.getItem("profilData"))
-  ); // État pour le profil utilisateur
+  const [profilData, setProfilData] = useState(JSON.parse(localStorage.getItem("profilData"))); // État pour le profil utilisateur
   const hasToken = localStorage.getItem("token"); // Récupérer le token dans le localStorage
+
+  const [editName , setEditName] = useState(false)
 
   // call API
   useEffect(() => {
@@ -39,32 +39,38 @@ export default function User() {
     fetchData();
   }, [hasToken]);
 
+
   return (
-    <section className="section-user">
-      <div className="container-title-user">
-        <h1 className="title-user">
+    <section className='section-user'>
+      <div className='container-title-user'>
+        <h1 className='title-user'>
           Welcome back <br />
           <span>{profilData?.firstName}</span>{" "}
           <span>{profilData?.lastName}</span>!
         </h1>
-        <button className="btn-edit-user">Edit Name</button>
+        <button className='btn-edit-user' onClick={() => setEditName(!editName)}>Edit Name</button>
+        {editName &&
+           <div>
+
+           </div>
+          }
       </div>
 
-      <div className="container-transaction-user">
+      <div className='container-transaction-user'>
         <TransactionUser
-          texte1="Argent Bank Checking (x8349)"
-          texte2="Available Balance"
-          title="$2,082.79"
+          texte1='Argent Bank Checking (x8349)'
+          texte2='Available Balance'
+          title='$2,082.79'
         />
         <TransactionUser
-          texte1="Argent Bank Savings (x6712)"
-          texte2="Available Balance"
-          title="$10,928.42"
+          texte1='Argent Bank Savings (x6712)'
+          texte2='Available Balance'
+          title='$10,928.42'
         />
         <TransactionUser
-          texte1="Argent Bank Credit Card (x8349)"
-          texte2="Current Balance"
-          title="$184.30"
+          texte1='Argent Bank Credit Card (x8349)'
+          texte2='Current Balance'
+          title='$184.30'
         />
       </div>
     </section>
