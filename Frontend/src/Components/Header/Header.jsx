@@ -35,7 +35,7 @@ export default function Header() {
           <FontAwesomeIcon icon={faRightToBracket} />
           <Link to='/'>
             <p></p>
-            <p className='link-header' onClick={SignOut}>
+            <p className='link-header' onClick={SignOut} >
               Sign Out
             </p>
           </Link>
