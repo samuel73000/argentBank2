@@ -39,7 +39,8 @@ export default function User() {
     fetchData();
   }, [hasToken]);
 
-
+console.log(profilData)
+console.log(editName)
   return (
     <section className='section-user'>
       <div className='container-title-user'>
@@ -48,12 +49,18 @@ export default function User() {
           <span>{profilData?.firstName}</span>{" "}
           <span>{profilData?.lastName}</span>!
         </h1>
-        <button className='btn-edit-user' onClick={() => setEditName(!editName)}>Edit Name</button>
-        {editName &&
-           <div>
-
+        {editName ?(
+          <div>
+            <input type="text" />
+            <input type="text" />
+            <input type="text" />
+         <button className='btn-edit-user' type="submit">save</button>
+         <button className='btn-edit-user' onClick={() => setEditName(!editName)}>cancel</button>
            </div>
-          }
+        ):(
+          <button className='btn-edit-user' onClick={() => setEditName(!editName)}>Edit Name</button>
+        )
+         }
       </div>
 
       <div className='container-transaction-user'>
