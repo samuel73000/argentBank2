@@ -39,7 +39,7 @@ export default function User() {
     fetchData();
   }, [hasToken]);
 
-console.log(profilData)
+// console.log(profilData)
 console.log(editName)
   return (
     <section className='section-user'>
