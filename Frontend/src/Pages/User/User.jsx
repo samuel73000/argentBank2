@@ -40,7 +40,7 @@ export default function User() {
   }, [hasToken]);
 
 // console.log(profilData)
-console.log(editName)
+// console.log(editName)
   return (
     <section className='section-user'>
       <div className='container-title-user'>
