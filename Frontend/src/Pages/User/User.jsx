@@ -3,12 +3,14 @@ import "./User.css";
 import TransactionUser from "../../Components/TransactionUser/TransactionUser";
 
 export default function User() {
-  const [profilData, setProfilData] = useState(JSON.parse(localStorage.getItem("profilData"))); // État pour le profil utilisateur
+  const [profilData, setProfilData] = useState(
+    JSON.parse(localStorage.getItem("profilData"))
+  ); // État pour le profil utilisateur
   const hasToken = localStorage.getItem("token"); // Récupérer le token dans le localStorage
 
-  const [editName , setEditName] = useState(false)
+  const [editName, setEditName] = useState(false);
 
-  // call API
+  // call API recuparation de data
   useEffect(() => {
     const fetchData = async () => {
       if (!hasToken) {
@@ -39,29 +41,45 @@ export default function User() {
     fetchData();
   }, [hasToken]);
 
-// console.log(profilData)
-// console.log(editName)
+  // console.log(profilData)
+  // console.log(editName)
   return (
     <section className='section-user'>
-      <div className='container-title-user'>
-        <h1 className='title-user'>
-          Welcome back <br />
-          <span>{profilData?.firstName}</span>{" "}
-          <span>{profilData?.lastName}</span>!
-        </h1>
-        {editName ?(
-          <div>
-            <input type="text" />
-            <input type="text" />
-            <input type="text" />
-         <button className='btn-edit-user' type="submit">save</button>
-         <button className='btn-edit-user' onClick={() => setEditName(!editName)}>cancel</button>
-           </div>
-        ):(
-          <button className='btn-edit-user' onClick={() => setEditName(!editName)}>Edit Name</button>
-        )
-         }
-      </div>
+      {editName ? (
+        <div className="container-title-input-btn-user">
+          <h1 className='title-user'>
+            Welcome back <br />
+          </h1>
+          <div className="container-input-user">
+            <input type='text' className="input-edit-user" />
+            <input type='text' className="input-edit-user" />
+            </div>
+            <div className="container-btn-user">
+            <button className='btn-edit-user' type='submit'>
+              Save
+            </button>
+            <button
+              className='btn-edit-user'
+              onClick={() => setEditName(!editName)}>
+              Cancel
+            </button>
+            </div>
+        </div>
+      ) : (
+        <div>
+          <h1 className='title-user'>
+            Welcome back <br />
+            <span>{profilData?.firstName}</span>{" "}
+            <span>{profilData?.lastName}</span>!
+          </h1>
+          <button
+            className='btn-edit-user'
+            onClick={() => setEditName(!editName)}>
+            Edit Name
+          </button>
+        </div>
+      )}
+      
 
       <div className='container-transaction-user'>
         <TransactionUser

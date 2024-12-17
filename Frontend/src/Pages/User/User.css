@@ -6,14 +6,38 @@
     text-align: center;
     margin-top: -30px;
 }
+
+
+
 .container-title-user{
     padding: 0;
 }
+.container-title-input-btn-user{
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+}
+.container-input-user{
+display: flex;
+gap: 3%;
+justify-content: center;
+margin-bottom: 20px;
+margin-top: -10px;
+}
+.container-btn-user{
+    display: flex;
+    gap: 3%;
+    justify-content: center;
+}
+
 .title-user{
     font-size: 2em;
     font-weight: bold;
     color: white;
     padding-top: 20px;
+}
+.input-edit-user{
+    height: 30px;
 }
 
 .btn-edit-user{
@@ -23,6 +47,7 @@
     font-weight: bold;
     padding: 10px;
     cursor: pointer;
+    min-width: 100px;
 }
 
 
