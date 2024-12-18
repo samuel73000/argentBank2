@@ -40,7 +40,7 @@ export default function Header() {
         <div className="container-header-sign-out">
           <FontAwesomeIcon icon={faCircleUser} className="font-header" />
           <Link to="/User">
-            <p className="userName-Header">{profilData?.firstName}</p>
+            <p className="userName-Header">{profilData?.userName}</p>
           </Link>
           <FontAwesomeIcon icon={faRightToBracket} />
           <Link to="/">
