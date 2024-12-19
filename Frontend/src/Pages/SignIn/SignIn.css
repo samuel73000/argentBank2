@@ -61,12 +61,12 @@ input{
 .error-message {
     color: red;
     font-size: 0.6rem;
-    margin-top: 10px;
+   margin-top: -20px;
     position: absolute;
   }
   .toggle-password-icon{
    position: absolute;
-   top: 60.5%;
+   top: 52.5%;
    right: 12.5%;
    font-size:17px;
   }
