@@ -279,8 +279,6 @@ definitions:
         properties:
           id:
             type: string
-          email:
-            type: string
   LoginResponse:
     type: object
     properties:
@@ -317,10 +315,6 @@ definitions:
   TransactionInput:
     type: object
     properties:
-      date:
-        type: string
-        format: date-time
-        description: Transaction date
       amount:
         type: number
         format: float
