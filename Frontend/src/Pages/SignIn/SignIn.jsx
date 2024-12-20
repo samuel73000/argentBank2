@@ -170,7 +170,7 @@ export default function SignIn() {
         {errorMessage && <p className='error-message'>{errorMessage}</p>}
         <form onSubmit={handleSubmitSignIn}>
           <label htmlFor='email' className='label-SignIn'>
-            Username
+            User name
           </label>
           <input
             type='text'
