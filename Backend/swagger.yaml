@@ -297,9 +297,6 @@ definitions:
       id:
         type: string
         description: Transaction ID
-      accountId:
-        type: string
-        description: Associated account ID
       date:
         type: string
         format: date-time
@@ -311,12 +308,15 @@ definitions:
       description:
         type: string
         description: Transaction description
+      Category:
+          type: string
+          description: Transaction category
+      type:
+          type: string
+          description: Transaction type
   TransactionInput:
     type: object
     properties:
-      accountId:
-        type: string
-        description: Associated account ID
       date:
         type: string
         format: date-time
@@ -327,7 +327,12 @@ definitions:
         description: Transaction amount
       description:
         type: string
-        description: Transaction description
+      Category:
+          type: string
+          description: Transaction category
+      type:
+          type: string
+          description: Transaction type
   TransactionList:
     type: array
     items:
