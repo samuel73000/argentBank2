@@ -17,6 +17,7 @@ Assurez-vous d'avoir les outils suivants installés sur votre machine : - [Node.
 `cd back && npm install`  
 
 ## Démarrage du Projet
+
 ### Front-end
 1. Accédez au dossier `front` : `cd front`  
 2. Lancez le serveur de développement : `npm start`  
@@ -31,10 +32,12 @@ Assurez-vous d'avoir les outils suivants installés sur votre machine : - [Node.
 ### Back-end : Express, MongoDB avec Mongoose, bcrypt, JSON Web Tokens, Swagger  
 
 ## Scripts utiles
+
 ### Front-end :  
 - **Démarrer l'application** : `npm start`  
 - **Compiler pour la production** : `npm run build`  
 - **Lancer les tests** : `npm test`  
+
 ### Back-end :  
 - **Démarrer le serveur en mode développement** : `npm run dev:server`  
 - **Initialiser la base de données** : `npm run populate-db`  
