@@ -48,3 +48,13 @@ a{
 .userName-Header:hover{
   text-decoration:underline;
 }
+
+  /* responsive */
+  @media (max-width: 768px) {
+    .container-header {
+      padding: 5px 10px;
+    }
+    .header-logo {
+      width: 150px;
+    }
+  }
