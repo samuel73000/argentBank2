@@ -27,13 +27,43 @@
   font-size: 1.1rem;
 }
 
-
 /* features */
 
 .container-features {
+  display: flex;
+  flex-direction: row;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .hero-home {
+    background-image: url(../../Assets/bank-tree.jpeg);
+    background-position: 0 -180px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 600px;
+    position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 
+  .content-hero-home {
+    background: white;
+    padding: 1.7rem;
+    text-align: left;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 1rem;
+left: 0;
+top: 400px;
+right: 0;
 
-  /* responsive */
+  }
+
+  .container-features {
+    margin-top: 70px;
+    flex-direction: column;
+  }
+}
