@@ -31,3 +31,34 @@ padding: 20px;
     color: #fff;
  
 }
+
+  /* responsive */
+  @media (max-width: 768px) {
+    .transaction-user{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    width: 80%;
+    padding: 20px;
+    }
+    .texte-transaction-user{
+        margin: 0;
+        padding: 0;
+        font-size: 0.6rem;
+        font-weight: normal;
+    }
+    .title-transaction-user{
+        margin: 0;
+        font-size: 1.6rem;
+        font-weight: bold;
+    }
+    .btn-transaction-user{
+        width: 70px;
+        padding: 5px;
+        font-size: 0.5rem;
+        font-weight: bold;
+        margin-top: 0rem;
+    }
+    
+  }

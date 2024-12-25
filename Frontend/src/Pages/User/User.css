@@ -59,7 +59,37 @@ margin-top: -10px;
     margin-top: 40px;
     gap: 40px;
 }
-
+ /* responsive */
+ @media (max-width: 768px) {
+    .section-user{
+        width: 100%;
+        height: 100%;
+        background-color: #12002b;
+        align-items: center;
+        text-align: center;
+        margin-top: -30px;
+        padding-bottom: 30px;
+    }
+    .title-user{
+        font-size: 1rem;
+    }
+    .btn-edit-user{
+        font-size: 0.6rem;
+        padding: 7px;
+        cursor: pointer;
+        min-width: 100px;
+    }
+    .container-input-user{
+        gap: 3%;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 8px;
+        }
+        .input-edit-user{
+            height: 25px;
+            width: 80%;
+        }
+ }
 
 
 
