@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import "./User.css";
 import TransactionUser from "../../Components/TransactionUser/TransactionUser";
+import { useDispatch } from 'react-redux';
+import { setUserName } from '../../Redux/Features/UserSlice';
+import { useSelector } from 'react-redux';
 
 export default function User() {
-  const [profilData, setProfilData] = useState(
-    JSON.parse(localStorage.getItem("profilData"))
-  ); // État pour le profil utilisateur
   const hasToken = localStorage.getItem("token"); // Récupérer le token dans le localStorage
-
+  const [data, setData] = useState(null);
   const [editName, setEditName] = useState(false);
+  const dispatch = useDispatch();
 
   /////////////////// call API recuparation de data
   useEffect(() => {
@@ -29,39 +30,37 @@ export default function User() {
         );
 
         if (response.ok) {
-          const result = await response.json();
-          // Mettre à jour localStorage et l'état profilData
-          localStorage.setItem("profilData", JSON.stringify(result.body));
-          setProfilData(result.body);
+           const result = await response.json();
+           setData(result.body);
+          dispatch(setUserName(result.body.userName));// Mettre à jour le store
         }
       } catch (error) {
         console.error("Erreur lors de la requête:", error);
       }
     };
     fetchData();
-  }, [hasToken]);
-
-  // console.log(profilData);
-  // console.log(editName)
+  }, [hasToken , dispatch ]);
 
 
 
 
  /////////////// call API changement de UserName
 
+//  on recupere la valeur du userName daans le store
+const userName = useSelector((state) => state.user.userName);
 //  on recupere la valeur de l'input userName 
-  const [userName, setUserName] = useState(profilData?.userName || ""); // Initialiser avec profilData si disponible
+  const [userNamePut, setUserNamePut] = useState(userName || ""); // Initialiser avec profilData si disponible
 
   const handleInputChange = (e) => {
-    setUserName(e.target.value); // on detecte si l'input userName a chnager 
+    setUserNamePut(e.target.value); // on detecte si l'input userName a chnager 
   };
  
+
   const fetchPutUser = async () => {
     if (!hasToken) {
       console.error("Token manquant !");
       return;
     }
-
     try {
       const response = await fetch(
         "http://localhost:3001/api/v1/user/profile",
@@ -72,7 +71,7 @@ export default function User() {
             Authorization: `Bearer ${hasToken}`, 
           },
           body: JSON.stringify({
-            userName: userName, // on envoie la nouvelle valeur de userName 
+            userName: userNamePut, // on envoie la nouvelle valeur de userName 
           }),
         }
       );
@@ -81,6 +80,7 @@ export default function User() {
         const result = await response.json();
         console.log("Réponse réussie :", result);
         setEditName(!editName);
+        dispatch(setUserName(userNamePut)); // Mettre à jour le store
       } else {
         console.error(
           "Erreur dans la réponse :",
@@ -104,20 +104,20 @@ export default function User() {
             <input
               type='text'
               className='input-edit-user'
-              placeholder={profilData?.userName}
-              value={userName} // Valeur de l'input liée à l'état
+              placeholder={userName}
+              value={userNamePut} // Valeur de l'input liée à l'état
               onChange={handleInputChange} // Mettre à jour l'état à chaque changement
             />
             <input
               type='text'
               className='input-edit-user'
-              placeholder={profilData?.firstName}
+              placeholder={data.firstName}
               disabled
             />
             <input
               type='text'
               className='input-edit-user'
-              placeholder={profilData?.lastName}
+              placeholder={data.lastName}
               disabled
             />
           </div>
@@ -139,8 +139,8 @@ export default function User() {
         <div>
           <h1 className='title-user'>
             Welcome back <br />
-            <span>{profilData?.firstName}</span>{" "}
-            <span>{profilData?.lastName}</span>!
+            <span>{data.firstName}</span>{" "}
+            <span>{data.lastName}</span>!
           </h1>
           <button
             className='btn-edit-user'

@@ -1,32 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Header.css";
 import logo from "../../Assets/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+  const userName = useSelector((state) => state.user.userName);
   const [hasToken, setHasToken] = useState(localStorage.getItem("token")); // Token local
-  const [profilData, setProfilData] = useState(
-    JSON.parse(localStorage.getItem("profilData"))
-  ); // Profil utilisateur
+
 
   // Fonction pour gérer la déconnexion
   function SignOut() {
     localStorage.removeItem("token"); // Supprimer le token
     localStorage.removeItem("profilData"); // Supprimer le profil
     setHasToken(null); // Réinitialiser le token
-    setProfilData(null); // Réinitialiser le profil
+  
   }
-
-  useEffect(() => {
-    if (hasToken) {
-      const data = JSON.parse(localStorage.getItem("profilData"));
-      setProfilData(data);
-    } else {
-      setProfilData(null);
-    }
-  }, [hasToken]); // Mise à jour lorsque hasToken change
 
   return (
     <header className="container-header">
@@ -40,7 +31,7 @@ export default function Header() {
         <div className="container-header-sign-out">
           <FontAwesomeIcon icon={faCircleUser} className="font-header" />
           <Link to="/User">
-            <p className="userName-Header">{profilData?.userName}</p>
+            <p className="userName-Header">{userName}</p>
           </Link>
           <FontAwesomeIcon icon={faRightToBracket} />
           <Link to="/">
