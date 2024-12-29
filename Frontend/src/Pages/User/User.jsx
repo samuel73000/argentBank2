@@ -11,7 +11,7 @@ export default function User() {
   const [editName, setEditName] = useState(false);
   const dispatch = useDispatch();
 
-  /////////////////// call API recuparation de data
+  //////////////// call API recuparation de data
   useEffect(() => {
     const fetchData = async () => {
       if (!hasToken) {
