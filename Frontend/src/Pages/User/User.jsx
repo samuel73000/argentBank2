@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import "./User.css";
 import TransactionUser from "../../Components/TransactionUser/TransactionUser";
-import { useDispatch } from 'react-redux';
-import { setUserName } from '../../Redux/Features/UserSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch } from "react-redux";
+import { setUserName } from "../../Redux/Features/UserSlice";
+import { useSelector } from "react-redux";
+// import useApi from "../../Hooks/useApi";
 
 export default function User() {
   const hasToken = localStorage.getItem("token"); // Récupérer le token dans le localStorage
@@ -41,20 +42,18 @@ export default function User() {
     fetchData();
   }, [hasToken , dispatch ]);
 
+  console.log(data);
 
+  /////////////// call API changement de UserName
 
-
- /////////////// call API changement de UserName
-
-//  on recupere la valeur du userName daans le store
-const userName = useSelector((state) => state.user.userName);
-//  on recupere la valeur de l'input userName 
+  //  on recupere la valeur du userName daans le store
+  const userName = useSelector((state) => state.user.userName);
+  //  on recupere la valeur de l'input userName
   const [userNamePut, setUserNamePut] = useState(userName || ""); // Initialiser avec profilData si disponible
 
   const handleInputChange = (e) => {
-    setUserNamePut(e.target.value); // on detecte si l'input userName a chnager 
+    setUserNamePut(e.target.value); // on detecte si l'input userName a chnager
   };
- 
 
   const fetchPutUser = async () => {
     if (!hasToken) {
@@ -68,10 +67,10 @@ const userName = useSelector((state) => state.user.userName);
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${hasToken}`, 
+            Authorization: `Bearer ${hasToken}`,
           },
           body: JSON.stringify({
-            userName: userNamePut, // on envoie la nouvelle valeur de userName 
+            userName: userNamePut, // on envoie la nouvelle valeur de userName
           }),
         }
       );
@@ -139,8 +138,7 @@ const userName = useSelector((state) => state.user.userName);
         <div>
           <h1 className='title-user'>
             Welcome back <br />
-            <span>{data.firstName}</span>{" "}
-            <span>{data.lastName}</span>!
+            <span>{data.firstName}</span> <span>{data.lastName}</span>!
           </h1>
           <button
             className='btn-edit-user'
@@ -170,3 +168,5 @@ const userName = useSelector((state) => state.user.userName);
     </section>
   );
 }
+
+
