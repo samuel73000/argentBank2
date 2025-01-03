@@ -74,7 +74,10 @@ input{
     cursor: pointer;
   }
 
-
+form{
+    display: flex;
+    flex-direction: column;
+}
 
   /* responsive */
 @media (max-width: 768px) {

@@ -4,13 +4,13 @@ import TransactionUser from "../../Components/TransactionUser/TransactionUser";
 import { useDispatch } from "react-redux";
 import { setUserName } from "../../Redux/Features/UserSlice";
 import { useSelector } from "react-redux";
-// import useApi from "../../Hooks/useApi";
 
 export default function User() {
   const hasToken = localStorage.getItem("token"); // Récupérer le token dans le localStorage
   const [data, setData] = useState(null);
   const [editName, setEditName] = useState(false);
   const dispatch = useDispatch();
+
 
   //////////////// call API recuparation de data
   useEffect(() => {
@@ -40,16 +40,19 @@ export default function User() {
       }
     };
     fetchData();
-  }, [hasToken , dispatch ]);
+  }, [hasToken, dispatch]);
 
   console.log(data);
+  
 
   /////////////// call API changement de UserName
 
-  //  on recupere la valeur du userName daans le store
-  const userName = useSelector((state) => state.user.userName);
-  //  on recupere la valeur de l'input userName
-  const [userNamePut, setUserNamePut] = useState(userName || ""); // Initialiser avec profilData si disponible
+
+    //  on recupere la valeur du userName daans le store
+    const userName = useSelector((state) => state.user.userName);
+    //  on recupere la valeur de l'input userName
+    const [userNamePut, setUserNamePut] = useState(userName || ""); // Initialiser avec profilData si disponible
+
 
   const handleInputChange = (e) => {
     setUserNamePut(e.target.value); // on detecte si l'input userName a chnager
@@ -136,9 +139,9 @@ export default function User() {
         </div>
       ) : (
         <div>
-          <h1 className='title-user'>
+          <h1 className='title-user'> 
             Welcome back <br />
-            <span>{data.firstName}</span> <span>{data.lastName}</span>!
+            <span>{data?.firstName}</span> <span>{data?.lastName}</span>!
           </h1>
           <button
             className='btn-edit-user'
@@ -168,5 +171,3 @@ export default function User() {
     </section>
   );
 }
-
-
