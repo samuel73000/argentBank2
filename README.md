@@ -18,6 +18,7 @@ Assurez-vous d'avoir les outils suivants installés sur votre machine : - [Node.
 
 ## Démarrage du Projet
 
+
 ### Front-end
 1. Accédez au dossier `front` : `cd front`  
 2. Lancez le serveur de développement : `npm start`  
