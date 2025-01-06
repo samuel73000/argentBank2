@@ -6,6 +6,7 @@ Argent Bank est une application React avec une API Express qui permet aux utilis
 ## Prérequis
 Assurez-vous d'avoir les outils suivants installés sur votre machine : - [Node.js](https://nodejs.org/) (version 14 ou supérieure recommandée) - [npm](https://www.npmjs.com/) (inclus avec Node.js)
 
+
 ## Installation
 1. **Clonez le dépôt du projet** :  
 `git clone <url-du-repo>`  
@@ -17,7 +18,6 @@ Assurez-vous d'avoir les outils suivants installés sur votre machine : - [Node.
 `cd back && npm install`  
 
 ## Démarrage du Projet
-
 
 ### Front-end
 1. Accédez au dossier `front` : `cd front`  
