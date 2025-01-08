@@ -4,58 +4,45 @@ import TransactionUser from "../../Components/TransactionUser/TransactionUser";
 import { useDispatch } from "react-redux";
 import { setUserName } from "../../Redux/Features/UserSlice";
 import { useSelector } from "react-redux";
+import useApi from "../../Hooks/UseApi";
 
 export default function User() {
   const hasToken = localStorage.getItem("token"); // Récupérer le token dans le localStorage
-  const [data, setData] = useState(null);
+
   const [editName, setEditName] = useState(false);
   const dispatch = useDispatch();
 
+  
+  //  on recupere la valeur du userName daans le store pour l'afficher dans l'input
+  const userName = useSelector((state) => state.user.userName);
+  //  on recupere la valeur de l'input userName pour la mettre à jour dans le store
+  const [userNamePut, setUserNamePut] = useState(userName || ""); 
 
-  //////////////// call API recuparation de data
+
+
+  //////// Utilise le hook personnalisé pour l'appel API
+  const { data, loading, error } = useApi(
+    "http://localhost:3001/api/v1/user/profile",
+    hasToken
+  );
+
   useEffect(() => {
-    const fetchData = async () => {
-      if (!hasToken) {
-        return;
-      }
-      try {
-        const response = await fetch(
-          "http://localhost:3001/api/v1/user/profile",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${hasToken}`, // On envoie le token
-            },
-          }
-        );
+    if (data) {
+      dispatch(setUserName(data.userName)); // Mettre à jour le store Redux avec le nom d'utilisateur
+    }
+  }, [data, dispatch]);
 
-        if (response.ok) {
-           const result = await response.json();
-           setData(result.body);
-          dispatch(setUserName(result.body.userName));// Mettre à jour le store
-        }
-      } catch (error) {
-        console.error("Erreur lors de la requête:", error);
-      }
-    };
-    fetchData();
-  }, [hasToken, dispatch]);
+  if (loading) return <div>Chargement...</div>;
+  if (error) return <div>Erreur: {error}</div>;
 
   console.log(data);
-  
+
+
 
   /////////////// call API changement de UserName
 
-
-    //  on recupere la valeur du userName daans le store
-    const userName = useSelector((state) => state.user.userName);
-    //  on recupere la valeur de l'input userName
-    const [userNamePut, setUserNamePut] = useState(userName || ""); // Initialiser avec profilData si disponible
-
-
   const handleInputChange = (e) => {
-    setUserNamePut(e.target.value); // on detecte si l'input userName a chnager
+    setUserNamePut(e.target.value);
   };
 
   const fetchPutUser = async () => {
@@ -63,6 +50,7 @@ export default function User() {
       console.error("Token manquant !");
       return;
     }
+
     try {
       const response = await fetch(
         "http://localhost:3001/api/v1/user/profile",
@@ -72,17 +60,16 @@ export default function User() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${hasToken}`,
           },
-          body: JSON.stringify({
-            userName: userNamePut, // on envoie la nouvelle valeur de userName
-          }),
+          body: JSON.stringify({ userName: userNamePut }),
         }
       );
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Réponse réussie :", result);
-        setEditName(!editName);
-        dispatch(setUserName(userNamePut)); // Mettre à jour le store
+        console.log("Mise à jour réussie :", result);
+
+        setEditName(false); // Fermer l'édition
+        dispatch(setUserName(userNamePut)); // Mettre à jour le store Redux
       } else {
         console.error(
           "Erreur dans la réponse :",
@@ -94,6 +81,10 @@ export default function User() {
       console.error("Erreur lors de la requête :", error);
     }
   };
+
+  if (loading) return <p>Chargement...</p>;
+  if (error) return <p>Erreur : {error}</p>;
+
 
   return (
     <section className='section-user'>
@@ -139,7 +130,7 @@ export default function User() {
         </div>
       ) : (
         <div>
-          <h1 className='title-user'> 
+          <h1 className='title-user'>
             Welcome back <br />
             <span>{data?.firstName}</span> <span>{data?.lastName}</span>!
           </h1>
