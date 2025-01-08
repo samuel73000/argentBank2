@@ -2,6 +2,9 @@
     width: 100%;
     height: calc(100vh - 180px);
     background-color: #12002b;
+    display: flex;
+        justify-content: center;
+        align-items: center;
 }
 input{
     cursor: pointer;
@@ -12,9 +15,7 @@ input{
     width: 300px;
     margin: 0 auto;
     padding: 2rem;
-    position: absolute;
-    top: 6rem;
-    left: 43%;
+    margin-top: -10%;
 }
 .container-title-SignIn{
     display: flex;
@@ -34,8 +35,10 @@ input{
     text-align: left;
 }
 .input-SignIn{
-    padding: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     margin-bottom: 10px;
+    width: 100%;
 }
 .container-submit-SignIn{
     display: flex;
@@ -44,7 +47,6 @@ input{
 .label-remenber-SignIn{
     margin-left: 0.25rem; 
 }
-
 .btn-submit-SignIn{
     cursor: pointer;
     display: block;
@@ -64,10 +66,14 @@ input{
    margin-top: -20px;
     position: absolute;
   }
+  .input-password-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
   .toggle-password-icon{
-   position: absolute;
-   top: 52.5%;
-   right: 12.5%;
+    margin-left: -12%;
+    margin-top: -8px;
    font-size:17px;
   }
   .toggle-password-icon{
@@ -81,31 +87,22 @@ form{
 
   /* responsive */
 @media (max-width: 768px) {
-    .section-SignIn{
+    .section-SignIn {
         width: 100%;
-        height: calc(100vh - 0px);
+        height:100vh;
         background-color: #12002b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    .container-SignIn{
+    
+    .container-SignIn {
         box-sizing: border-box;
         background-color: white;
         width: 300px;
-        margin: 0 auto;
         padding: 1rem;
-        position: absolute;
-        top: 4.5rem;
-        left: 10%;
+        margin: 0 auto;
+        position: relative;
     }
 
-    .toggle-password-icon{
-        position: absolute;
-        top: 52.5%;
-        right: 15%;
-        font-size:17px;
-       }
-       .input-SignIn{
-        padding: 5px;
-        margin-bottom: 10px;
-        padding-right: 10%;
-    }
 }

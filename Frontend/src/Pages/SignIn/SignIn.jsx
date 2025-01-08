@@ -181,13 +181,17 @@ export default function SignIn() {
           />
           <label htmlFor='password' className='label-SignIn'>
             Password
-          </label>
+      </label>
+
+
+ <div className="input-password-container">
           <input
             type={showPassword ? "text" : "password"}
             id='password'
             className='input-SignIn'
           />
-          {showPassword ? (
+           
+           {showPassword ? (
             <FontAwesomeIcon
               icon={faEyeSlash}
               className='toggle-password-icon'
@@ -200,6 +204,11 @@ export default function SignIn() {
               onClick={() => setShowPassword(!showPassword)}
             />
           )}
+          </div>
+
+
+
+
           <div className='remember-me-container'>
             <input
               type='checkbox'
