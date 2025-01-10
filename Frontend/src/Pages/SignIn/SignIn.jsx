@@ -37,7 +37,7 @@ export default function SignIn() {
     null,
     "POST",
     {
-      email, 
+      email,
       password,
     }
   );

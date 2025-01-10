@@ -21,7 +21,7 @@ const useApi = (url, token, method, body = null) => {
         const response = await fetch(url, {
           method,
           headers,
-          ...(body && { body: JSON.stringify(body) }),  // Ajouter le body si défini
+          ...(body && { body: JSON.stringify(body) }), // Ajouter le body si défini
         });
 
         if (!response.ok) {
@@ -38,10 +38,9 @@ const useApi = (url, token, method, body = null) => {
     };
 
     fetchData(); // Lancer la requête
-  }, [url, token, method, body]);  // Déclencher l'effet si ces valeurs changent
+  }, [url, token, method, body]); // Déclencher l'effet si ces valeurs changent
 
   return { data, loading, error };
 };
 
 export default useApi;
-
