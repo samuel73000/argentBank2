@@ -1,22 +1,21 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "./Header.css";
 import logo from "../../Assets/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
-
+import { useNavigate } from "react-router-dom";
 export default function Header() {
   const userName = useSelector((state) => state.user.userName);
-  const [hasToken, setHasToken] = useState(localStorage.getItem("token")); // Token local
-
+  let hasToken = (localStorage.getItem("token")); // Token local
+  const navigate = useNavigate();
 
   // Fonction pour gérer la déconnexion
   function SignOut() {
     localStorage.removeItem("token"); // Supprimer le token
     localStorage.removeItem("profilData"); // Supprimer le profil
-    setHasToken(null); // Réinitialiser le token
-  
+    navigate("/");
   }
 
   return (

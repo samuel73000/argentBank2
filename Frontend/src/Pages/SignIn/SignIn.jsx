@@ -5,7 +5,7 @@ import {
   faEyeSlash,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useApi from "../../Hooks/UseApi";
 
@@ -32,17 +32,14 @@ export default function SignIn() {
   }, []);
 
   // API Hooks
-  const { data: signInData } = useApi(
+  const { data: signInData, execute: executeSignIn } = useApi(
     "http://localhost:3001/api/v1/user/login",
     null,
     "POST",
-    {
-      email,
-      password,
-    }
+    { email, password },
+    false
   );
-
-  const { data: signUpData } = useApi(
+  const { data: signUpData, execute: executeSignUp } = useApi(
     "http://localhost:3001/api/v1/user/signup",
     null,
     "POST",
@@ -52,32 +49,27 @@ export default function SignIn() {
       firstName,
       lastName,
       userName,
-    }
+    },
+    false
   );
 
   // Soumission du formulaire Sign In
   const handleSubmitSignIn = (e) => {
     e.preventDefault();
+    executeSignIn();
+  };
+  // Rediriger lorsque signInData est mis à jour
+  useEffect(() => {
     if (signInData) {
       localStorage.setItem("token", signInData.token);
-
-      if (rememberMe) {
-        localStorage.setItem("rememberedEmail", email);
-      } else {
-        localStorage.removeItem("rememberedEmail");
-      }
-
-      navigate("/User");
-      setTimeout(() => {
-        window.location.reload();
-      }, 10);
+      navigate("/user");
     }
-  };
+  }, [signInData, navigate]);
 
   // Soumission du formulaire Sign Up
   const handleSubmitSignUp = (e) => {
     e.preventDefault();
-
+    executeSignUp();
     if (signUpData) {
       setModalSignUp(false);
     }
