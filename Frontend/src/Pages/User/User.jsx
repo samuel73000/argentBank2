@@ -22,10 +22,9 @@ export default function User() {
 
   useEffect(() => {
     if (userData) {
-      dispatch(setUserName(userData.userName));
+      dispatch(setUserName(userData.userName)); // on mais a jour le store avec le nom de l'utilisateur
     }
   }, [userData, dispatch]);
-  console.log(token)
 
   //////// Hook pour mettre à jour les données utilisateur (PUT)
   const [putData, setPutData] = useState(null);

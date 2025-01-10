@@ -5,18 +5,25 @@ import {
   faEyeSlash,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useApi from "../../Hooks/UseApi";
 
 export default function SignIn() {
-  const [showPassword, setShowPassword] = useState(false); // State pour afficher/masquer le mot de passe
-  const [errorMessage, setErrorMessage] = useState(""); // State pour les erreurs
-  const [email, setEmail] = useState(""); // State pour stocker l'email
-  const [rememberMe, setRememberMe] = useState(false); // State pour "Remember Me"
-  const navigate = useNavigate(); // Hook pour la redirection
+  // States pour la gestion des formulaires
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [modalSignUp, setModalSignUp] = useState(false);
+
+  const navigate = useNavigate();
 
   // Charger l'email depuis le localStorage si disponible
-  useEffect(() => {
+  useState(() => {
     const savedEmail = localStorage.getItem("rememberedEmail");
     if (savedEmail) {
       setEmail(savedEmail);
@@ -24,153 +31,69 @@ export default function SignIn() {
     }
   }, []);
 
-  const handleSubmitSignIn = async (e) => {
-    e.preventDefault();
+  // API Hooks
+  const { data: signInData } = useApi(
+    "http://localhost:3001/api/v1/user/login",
+    null,
+    "POST",
+    {
+      email, 
+      password,
+    }
+  );
 
-    const inputPassword = document.getElementById("password").value;
-
-    // Données à envoyer
-    const dataSignIn = {
+  const { data: signUpData } = useApi(
+    "http://localhost:3001/api/v1/user/signup",
+    null,
+    "POST",
+    {
       email,
-      password: inputPassword,
-    };
+      password,
+      firstName,
+      lastName,
+      userName,
+    }
+  );
 
-    try {
-      // Requête POST pour ce connecter
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataSignIn),
-      });
+  // Soumission du formulaire Sign In
+  const handleSubmitSignIn = (e) => {
+    e.preventDefault();
+    if (signInData) {
+      localStorage.setItem("token", signInData.token);
 
-      if (response.ok) {
-        const result = await response.json();
-        // Stocker le token dans localStorage
-        localStorage.setItem("token", result.body.token);
-
-        // Sauvegarder ou supprimer l'email selon le choix "Remember Me"
-        if (rememberMe) {
-          localStorage.setItem("rememberedEmail", email);
-        } else {
-          localStorage.removeItem("rememberedEmail");
-        }
-
-        // Rediriger vers la page utilisateur
-        navigate("/User");
-
-        // Recharger la page après la redirection
-        setTimeout(() => {
-          window.location.reload();
-        }, 10);
+      if (rememberMe) {
+        localStorage.setItem("rememberedEmail", email);
       } else {
-        setErrorMessage("Invalid email or password. Please try again.");
+        localStorage.removeItem("rememberedEmail");
       }
-    } catch (error) {
-      setErrorMessage("An error occurred. Please try again later.");
-      console.error("Erreur lors de la requête:", error);
+
+      navigate("/User");
+      setTimeout(() => {
+        window.location.reload();
+      }, 10);
     }
   };
 
-  ////////////////// partie sign-up///////////////////
-
-  const [modalSignUp, setModalSignUp] = useState(false);
-
-  const handleSubmitSignUp = async (e) => {
+  // Soumission du formulaire Sign Up
+  const handleSubmitSignUp = (e) => {
     e.preventDefault();
 
-    const inputPassword = document.getElementById("password").value;
-    const inputEmail = document.getElementById("email").value;
-    const inputFirstName = document.getElementById("firstName").value;
-    const inputLastName = document.getElementById("lastName").value;
-    const inputUserName = document.getElementById("userName").value;
-    // Données à envoyer
-    const dataSignUp = {
-      email: inputEmail,
-      password: inputPassword,
-      firstName: inputFirstName,
-      lastName: inputLastName,
-      userName: inputUserName,
-    };
-    try {
-      // Requête POST pour ce connecter
-      const response = await fetch("http://localhost:3001/api/v1/user/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataSignUp),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result);
-        setErrorMessage("");
-        // ferme la modal SignUp
-        setModalSignUp(false);
-      } else {
-        setErrorMessage("A field is empty or incorrect. Please try again..");
-      }
-    } catch (error) {
-      setErrorMessage("An error occurred. Please try again later.");
-      console.error("Erreur lors de la requête:", error);
+    if (signUpData) {
+      setModalSignUp(false);
     }
   };
 
   return modalSignUp ? (
-    ////////// partie sign-up///////////
+    ////////// Partie Sign Up //////////
     <section className='section-SignIn'>
       <div className='container-SignIn'>
         <div className='container-title-SignIn'>
           <FontAwesomeIcon icon={faCircleUser} className='icon-SignIn' />
           <h1 className='title-SignIn'>Sign Up</h1>
         </div>
-        {errorMessage && <p className='error-message'>{errorMessage}</p>}
         <form onSubmit={handleSubmitSignUp}>
           <label htmlFor='email' className='label-SignIn'>
-            email
-          </label>
-          <input type='text' id='email' className='input-SignIn' />
-          <label htmlFor='password' className='label-SignIn'>
-            Password
-          </label>
-          <input type='password' id='password' className='input-SignIn' />
-          <label htmlFor='FirstName' className='label-SignIn'>
-            First name
-          </label>
-          <input type='text' id='firstName' className='input-SignIn' />
-          <label htmlFor='LastName' className='label-SignIn'>
-            Last name
-          </label>
-          <input type='text' id='lastName' className='input-SignIn' />
-          <label htmlFor='UserName' className='label-SignIn'>
-            User name
-          </label>
-          <input type='text' id='userName' className='input-SignIn' />
-          <button type='submit' className='btn-submit-SignIn'>
-            Confirm
-          </button>
-          <button
-            className='btn-submit-SignIn'
-            onClick={() => setModalSignUp(!modalSignUp)}>
-            Cancel
-          </button>
-        </form>
-      </div>
-    </section>
-  ) : (
-    /////////// partie sign-in//////////////
-    <section className='section-SignIn'>
-      <div className='container-SignIn'>
-        <div className='container-title-SignIn'>
-          <FontAwesomeIcon icon={faCircleUser} className='icon-SignIn' />
-          <h1 className='title-SignIn'>Sign In</h1>
-        </div>
-        {errorMessage && <p className='error-message'>{errorMessage}</p>}
-        <form onSubmit={handleSubmitSignIn}>
-          <label htmlFor='email' className='label-SignIn'>
-            User name
+            Email
           </label>
           <input
             type='text'
@@ -179,35 +102,100 @@ export default function SignIn() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+
           <label htmlFor='password' className='label-SignIn'>
             Password
-      </label>
-
-
- <div className="input-password-container">
+          </label>
           <input
-            type={showPassword ? "text" : "password"}
+            type='password'
             id='password'
             className='input-SignIn'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-           
-           {showPassword ? (
+
+          <label htmlFor='firstName' className='label-SignIn'>
+            First Name
+          </label>
+          <input
+            type='text'
+            id='firstName'
+            className='input-SignIn'
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+
+          <label htmlFor='lastName' className='label-SignIn'>
+            Last Name
+          </label>
+          <input
+            type='text'
+            id='lastName'
+            className='input-SignIn'
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+
+          <label htmlFor='userName' className='label-SignIn'>
+            User Name
+          </label>
+          <input
+            type='text'
+            id='userName'
+            className='input-SignIn'
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+
+          <button type='submit' className='btn-submit-SignIn'>
+            Confirm
+          </button>
+          <button
+            type='button'
+            className='btn-submit-SignIn'
+            onClick={() => setModalSignUp(false)}>
+            Cancel
+          </button>
+        </form>
+      </div>
+    </section>
+  ) : (
+    ////////// Partie Sign In //////////
+    <section className='section-SignIn'>
+      <div className='container-SignIn'>
+        <div className='container-title-SignIn'>
+          <FontAwesomeIcon icon={faCircleUser} className='icon-SignIn' />
+          <h1 className='title-SignIn'>Sign In</h1>
+        </div>
+        <form onSubmit={handleSubmitSignIn}>
+          <label htmlFor='email' className='label-SignIn'>
+            User Name
+          </label>
+          <input
+            type='text'
+            id='email'
+            className='input-SignIn'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <label htmlFor='password' className='label-SignIn'>
+            Password
+          </label>
+          <div className='input-password-container'>
+            <input
+              type={showPassword ? "text" : "password"}
+              id='password'
+              className='input-SignIn'
+              value={password} // Utiliser l'état password pour la valeur
+              onChange={(e) => setPassword(e.target.value)} // Gérer le changement de mot de passe
+            />
             <FontAwesomeIcon
-              icon={faEyeSlash}
+              icon={showPassword ? faEyeSlash : faEye}
               className='toggle-password-icon'
               onClick={() => setShowPassword(!showPassword)}
             />
-          ) : (
-            <FontAwesomeIcon
-              icon={faEye}
-              className='toggle-password-icon'
-              onClick={() => setShowPassword(!showPassword)}
-            />
-          )}
           </div>
-
-
-
 
           <div className='remember-me-container'>
             <input
@@ -220,12 +208,14 @@ export default function SignIn() {
               Remember me
             </label>
           </div>
+
           <button type='submit' className='btn-submit-SignIn'>
             Sign In
           </button>
           <button
+            type='button'
             className='btn-submit-SignIn'
-            onClick={() => setModalSignUp(!modalSignUp)}>
+            onClick={() => setModalSignUp(true)}>
             Sign Up
           </button>
         </form>

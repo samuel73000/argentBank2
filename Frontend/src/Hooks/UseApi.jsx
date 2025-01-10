@@ -7,20 +7,21 @@ const useApi = (url, token, method, body = null) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!token) {
-        setError("Token is missing");
-        setLoading(false);
-        return;
-      }
       try {
+        // Créer les headers de manière conditionnelle
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        // Ajouter le token dans les headers uniquement s'il est défini
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
         const response = await fetch(url, {
           method,
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            // authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDg2YzdkZjJmNTI2MDNkY2UxNGM5OSIsImlhdCI6MTczNjQ2MjkxNSwiZXhwIjoxNzM2NTQ5MzE1fQ.xLJT2lSs5aTqsbRxV_LJQISWqNPGT7Uxt_ahdJ3-AVE",
-          },
-          ...(body && { body: JSON.stringify(body) }),
+          headers,
+          ...(body && { body: JSON.stringify(body) }),  // Ajouter le body si défini
         });
 
         if (!response.ok) {
@@ -36,17 +37,11 @@ const useApi = (url, token, method, body = null) => {
       }
     };
 
-    fetchData();
-  }, [url, token, method, body]);
+    fetchData(); // Lancer la requête
+  }, [url, token, method, body]);  // Déclencher l'effet si ces valeurs changent
 
   return { data, loading, error };
 };
 
 export default useApi;
-
-
-
-
-
-
 
