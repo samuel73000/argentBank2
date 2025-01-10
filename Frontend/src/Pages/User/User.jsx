@@ -28,7 +28,6 @@ export default function User() {
 
   //////// Hook pour mettre à jour les données utilisateur (PUT)
   const {
-    data: updateResponse,
     loading: loadingPut,
     execute: executePutUserName,
   } = useApi(
@@ -43,18 +42,15 @@ export default function User() {
     setUserNamePut(e.target.value);
   };
 
-  const handleSave = () => {
+  const handleSave = () => {// fonction pour sauvegarder le nom de l'utilisateur
     if (!token) {
       console.error("Token manquant !");
       return;
     }
     executePutUserName(); // on execute le put pour mettre a jour le nom de l'utilisateur
     setEditName(false); // on ferme le formulaire
+      dispatch(setUserName(userNamePut)); // on mais a jour le store avec le nom de l'utilisateur apres le put
   };
-
-  useEffect(() => {
-    dispatch(setUserName(userNamePut)); // on mais a jour le store avec le nom de l'utilisateur apres le put
-  }, [updateResponse, dispatch, userNamePut]);
 
   if (loading || loadingPut) return <p>Chargement...</p>;
   if (!userData) return <p>Aucune donnée disponible.</p>;

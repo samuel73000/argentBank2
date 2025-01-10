@@ -12,7 +12,6 @@ const useApi = (url, token, method, body = null, executeImmediately = true) => {
       const headers = {
         "Content-Type": "application/json",
       };
-
       if (token) {
         headers["Authorization"] = `Bearer ${token}`;
       }
