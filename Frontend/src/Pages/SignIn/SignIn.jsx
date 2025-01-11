@@ -58,6 +58,8 @@ export default function SignIn() {
     e.preventDefault();
     executeSignIn();
   };
+
+  
   // Rediriger lorsque signInData est mis à jour
   useEffect(() => {
     if (signInData) {
