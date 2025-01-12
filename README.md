@@ -4,7 +4,9 @@
 Argent Bank est une application React avec une API Express qui permet aux utilisateurs de gérer leurs comptes bancaires. Ce projet inclut une interface front-end développée en React et un back-end Express connecté à une base de données MongoDB.
 
 ## Prérequis
-Assurez-vous d'avoir les outils suivants installés sur votre machine : - [Node.js](https://nodejs.org/) (version 14 ou supérieure recommandée) - [npm](https://www.npmjs.com/) (inclus avec Node.js)
+Assurez-vous d'avoir les outils suivants installés sur votre machine :
+- [Node.js](https://nodejs.org/) (version 14 ou supérieure recommandée)
+- [npm](https://www.npmjs.com/) (inclus avec Node.js)
 
 
 ## Installation

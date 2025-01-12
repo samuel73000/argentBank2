@@ -59,7 +59,7 @@ export default function SignIn() {
     executeSignIn();
   };
 
-  
+
   // Rediriger lorsque signInData est mis à jour
   useEffect(() => {
     if (signInData) {
@@ -76,6 +76,7 @@ export default function SignIn() {
       setModalSignUp(false);
     }
   };
+
 
   return modalSignUp ? (
     ////////// Partie Sign Up //////////
