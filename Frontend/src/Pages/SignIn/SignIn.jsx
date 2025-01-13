@@ -69,6 +69,7 @@ export default function SignIn() {
   }, [signInData, navigate]);
 
   // Soumission du formulaire Sign Up
+  
   const handleSubmitSignUp = (e) => {
     e.preventDefault();
     executeSignUp();
