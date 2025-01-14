@@ -9,6 +9,7 @@
 input{
     cursor: pointer;
 }
+
 .container-SignIn{
     box-sizing: border-box;
     background-color: white;
@@ -16,6 +17,9 @@ input{
     margin: 0 auto;
     padding: 2rem;
     margin-top: -10%;
+    max-height: 505px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .container-title-SignIn{
     display: flex;
@@ -60,11 +64,10 @@ input{
     color: #fff;
     text-decoration: underline;
 }
-.error-message {
+.error-signIn{
     color: red;
     font-size: 0.6rem;
-   margin-top: -20px;
-    position: absolute;
+    margin-top: -6%;
   }
   .input-password-container{
     display: flex;

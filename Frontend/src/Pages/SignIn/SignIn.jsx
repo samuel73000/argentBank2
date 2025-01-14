@@ -19,27 +19,42 @@ export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [modalSignUp, setModalSignUp] = useState(false);
+  const [signUpError, setSignUpError] = useState(false);
 
   const navigate = useNavigate();
 
   // Charger l'email depuis le localStorage si disponible
-  useState(() => {
+  useEffect(() => {
     const savedEmail = localStorage.getItem("rememberedEmail");
     if (savedEmail) {
       setEmail(savedEmail);
       setRememberMe(true);
     }
   }, []);
+  // Synchroniser le localStorage avec l'état "rememberMe"
+  useEffect(() => {
+    if (rememberMe) {
+      localStorage.setItem("rememberedEmail", email);
+    } else {
+      localStorage.removeItem("rememberedEmail");
+    }
+  }, [rememberMe, email]);
 
   // API Hooks
-  const { data: signInData, execute: executeSignIn } = useApi(
+  // sign In
+  const {
+    data: signInData,
+    execute: executeSignIn,
+    error: signInError,
+  } = useApi(
     "http://localhost:3001/api/v1/user/login",
     null,
     "POST",
     { email, password },
     false
   );
-  const { data: signUpData, execute: executeSignUp } = useApi(
+  // sign Up
+  const { execute: executeSignUp} = useApi(
     "http://localhost:3001/api/v1/user/signup",
     null,
     "POST",
@@ -57,27 +72,36 @@ export default function SignIn() {
   const handleSubmitSignIn = (e) => {
     e.preventDefault();
     executeSignIn();
+    
   };
-
 
   // Rediriger lorsque signInData est mis à jour
   useEffect(() => {
     if (signInData) {
       localStorage.setItem("token", signInData.token);
       navigate("/user");
-    }
+    } 
   }, [signInData, navigate]);
 
-  // Soumission du formulaire Sign Up
-  
-  const handleSubmitSignUp = (e) => {
-    e.preventDefault();
-    executeSignUp();
-    if (signUpData) {
-      setModalSignUp(false);
-    }
-  };
 
+
+  // Soumission du formulaire Sign Up
+  const handleSubmitSignUp = (e) => {
+    // Vérifie si les champs sont remplis
+    if (
+      !email.trim() ||
+      !password.trim() ||
+      !firstName.trim() ||
+      !lastName.trim() ||
+      !userName.trim()
+    ) {
+      e.preventDefault();
+      setSignUpError(true) ;
+      return; // Arrête l'exécution si un champ est vide
+    }
+    // Exécute l'appel API si les champs sont remplis
+    executeSignUp();
+  };
 
   return modalSignUp ? (
     ////////// Partie Sign Up //////////
@@ -86,6 +110,11 @@ export default function SignIn() {
         <div className='container-title-SignIn'>
           <FontAwesomeIcon icon={faCircleUser} className='icon-SignIn' />
           <h1 className='title-SignIn'>Sign Up</h1>
+          {signUpError && (
+            <p className='error-signIn'>
+               Make sure all fields are filled out
+            </p>
+          )}
         </div>
         <form onSubmit={handleSubmitSignUp}>
           <label htmlFor='email' className='label-SignIn'>
@@ -162,6 +191,7 @@ export default function SignIn() {
         <div className='container-title-SignIn'>
           <FontAwesomeIcon icon={faCircleUser} className='icon-SignIn' />
           <h1 className='title-SignIn'>Sign In</h1>
+          {signInError && <p className='error-signIn'>Invalid email or password.</p>}
         </div>
         <form onSubmit={handleSubmitSignIn}>
           <label htmlFor='email' className='label-SignIn'>
