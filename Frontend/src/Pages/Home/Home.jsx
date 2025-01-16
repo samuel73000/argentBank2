@@ -20,7 +20,7 @@ export default function Home() {
     ],
   };
   return (
-    <section>
+    <section className="section-home">
       <div className='hero-home'>
         <div className='content-hero-home'>
           <p className='titre-hero-home'>No fees.</p>
